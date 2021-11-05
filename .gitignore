@@ -1,6 +1,4 @@
 *.vs
-*.vcxproj.filters
-*.vcxproj.user
 *.exe
 *.idb
 
