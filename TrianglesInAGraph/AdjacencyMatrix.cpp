@@ -5,6 +5,17 @@ AdjacencyMatrix::AdjacencyMatrix()
 {
 }
 
+AdjacencyMatrix::AdjacencyMatrix(AdjacencyList& adjList) : AdjacencyMatrix(adjList.getSize())
+{
+	for (int i = 1; i <= size; i++)
+	{
+		for (auto it = adjList.getNeighbors(i).begin(); it != adjList.getNeighbors(i).end(); it++)
+		{
+			graph[i - 1][*it - 1] = 1;
+		}
+	}
+}
+
 AdjacencyMatrix::AdjacencyMatrix(int size) : graph(vector<vector<int>>(size)), size(size)
 {
 	for (int i = 0; i < size; i++)
