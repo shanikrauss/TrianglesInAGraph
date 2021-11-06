@@ -2,11 +2,16 @@
 
 using namespace std;
 
-AdjacencyList::AdjacencyList(int n) : adj(vector<list<int>>(n))
+AdjacencyList::AdjacencyList(int n) : adj(vector<list<int>>(n)), size(n)
 {}
 
 AdjacencyList::~AdjacencyList()
 {}
+
+int AdjacencyList::getSize()
+{
+	return size;
+}
 
 void AdjacencyList::addEdge(int vert, int neigh)
 {
