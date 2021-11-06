@@ -51,6 +51,39 @@ Arbel up
 Shani down
 *//////////////////////////////////////////////////////////////////////////////
 
+list<int>* alg1(AdjacencyList& G)
+{
+	AdjacencyMatrix Gmatrix(G);
+
+	for (int i = 0; i < G.getSize(); i++)
+	{
+		list<int> vertINeighbors = G.getNeighbors(i + 1);
+
+		for (auto it = vertINeighbors.begin(); it != vertINeighbors.end(); it++)
+		{
+			int neighborOfI = *it;
+			list<int> vertNeighborsOfNeighborI = G.getNeighbors(neighborOfI);
+
+			for (auto it2 = vertNeighborsOfNeighborI.begin(); it2 != vertNeighborsOfNeighborI.end(); it2++)
+			{
+				int neighborOfneighbor = *it2;
+
+				if (Gmatrix.isNeighbor(neighborOfneighbor, i + 1))
+				{
+					list<int>* triangleVertices = new list<int>;
+					triangleVertices->push_back(i + 1);
+					triangleVertices->push_back(neighborOfI);
+					triangleVertices->push_back(neighborOfneighbor);
+
+					return triangleVertices;
+				}
+			}
+		}
+
+		return nullptr;
+	}
+}
+
 void main() {
 
 
