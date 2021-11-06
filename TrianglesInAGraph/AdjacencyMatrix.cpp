@@ -36,5 +36,14 @@ vector<int> AdjacencyMatrix::getNeighbors(int vert)
 	return graph[vert];
 }
 
+const vector<int>& AdjacencyMatrix::operator[](int i) const
+{
+	return graph[i];
+}
+
+vector<int>& AdjacencyMatrix::operator[](int i)
+{
+	return graph[i];
+}
 
 

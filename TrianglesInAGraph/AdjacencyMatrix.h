@@ -9,6 +9,7 @@ private:
 	vector<vector<int>> graph;
 
 public:
+
 	AdjacencyMatrix();
 	AdjacencyMatrix(int size);
 
@@ -19,5 +20,9 @@ public:
 	bool isNeighbor(int vert, int neigh);
 
 	vector<int> getNeighbors(int vert); // should we return as referns / pointer
-};
 
+	const vector<int>& operator[](int i) const;
+
+	vector<int>& operator[](int i);
+
+};
