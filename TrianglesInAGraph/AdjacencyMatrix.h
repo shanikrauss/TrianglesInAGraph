@@ -24,13 +24,21 @@ public:
 
 	vector<int> getNeighbors(int vert); // should we return as referns / pointer
 
-	vector<vector<int>> multMatrix(const vector<vector<int>>& matrix);
+	vector<vector<int>>* multMatrix(const vector<vector<int>>& matrix) const;
 
-	int calcCell(const vector<vector<int>>& matrix, int i, int j);
+	int calcCell(const vector<vector<int>>& matrix, int i, int j) const;
 
 
 	const vector<int>& operator[](int i) const;
 
 	vector<int>& operator[](int i);
+
+
+	/*
+	Arbel up
+	Shani down
+	*/
+
+	vector<vector<int>>* multMatrix(const AdjacencyMatrix& matrix) const;
 
 };

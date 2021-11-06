@@ -10,14 +10,14 @@ AdjacencyList::~AdjacencyList()
 
 void AdjacencyList::addEdge(int vert, int neigh)
 {
-	adj[vert].push_back(neigh);
+	adj[vert - 1].push_back(neigh);
 }
 
 bool AdjacencyList::isNeighbor(int vert, int neigh)
 {
 	bool isNeigh = false;
 
-	for (auto it = adj[vert].begin(); it != adj[vert].end(); it++)
+	for (auto it = adj[vert - 1].begin(); it != adj[vert - 1].end(); it++)
 	{
 		if (*it == neigh)
 		{
@@ -31,5 +31,12 @@ bool AdjacencyList::isNeighbor(int vert, int neigh)
 
 list<int>& AdjacencyList::getNeighbors(int vert)
 {
-	return adj[vert];
+	return adj[vert - 1];
 }
+
+
+
+/*/////////////////////////////////////////////////////////////////////////////
+Arbel up
+Shani down
+*//////////////////////////////////////////////////////////////////////////////

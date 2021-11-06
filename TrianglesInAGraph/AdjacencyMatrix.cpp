@@ -11,7 +11,8 @@ AdjacencyMatrix::AdjacencyMatrix(int size) : graph(vector<vector<int>>(size)), s
 	{
 		for (int j = 0; j < size; j++)
 		{
-			graph[i][j] = 0;
+			graph[i].push_back(0);
+			//graph[i][j] = 0;
 		}
 	}
 }
@@ -28,38 +29,40 @@ int AdjacencyMatrix::getSize()
 
 void AdjacencyMatrix::addEdge(int vert, int neigh) //function to add edge into the matrix
 {			
-	graph[vert][neigh] = 1;
+	graph[vert - 1][neigh - 1] = 1;
 }
 
 bool AdjacencyMatrix::isNeighbor(int vert, int neigh)
 {
-	return graph[vert][neigh];
+	return graph[vert - 1][neigh - 1];
 }
 
 vector<int> AdjacencyMatrix::getNeighbors(int vert)
 {
-	return graph[vert];
+	return graph[vert - 1];
 }
 
-const vector<int>& AdjacencyMatrix::operator[](int i) const
+const vector<int>& AdjacencyMatrix::operator[](int i) const // check if out_of_range
 {
 	return graph[i];
 }
 
-vector<int>& AdjacencyMatrix::operator[](int i)
+vector<int>& AdjacencyMatrix::operator[](int i) // check if out_of_range
 {
 	return graph[i];
 }
 
-vector<vector<int>> AdjacencyMatrix::multMatrix(const vector<vector<int>>& matrix)
+vector<vector<int>>* AdjacencyMatrix::multMatrix(const vector<vector<int>>& matrix) const
 {
-	vector<vector<int>> multedMatrix(this->size);
+	vector<vector<int>>* multedMatrix = new vector<vector<int>>(this->size);
 
 	for (int i = 0; i < size; i++)
 	{
 		for (int j = 0; j < size; j++)
 		{
-			multedMatrix[i][j] = calcCell(matrix, i, j);
+			//multedMatrix[i][j] = calcCell(matrix, i, j);
+			//(*multedMatrix)[i].push_back(6);
+			(*multedMatrix)[i].push_back(calcCell(matrix, i, j));
 		}
 	}
 
@@ -67,15 +70,28 @@ vector<vector<int>> AdjacencyMatrix::multMatrix(const vector<vector<int>>& matri
 }
 
 
-int AdjacencyMatrix::calcCell(const vector<vector<int>>& matrix, int row, int col)
+int AdjacencyMatrix::calcCell(const vector<vector<int>>& matrix, int row, int col) const
 {
 	int cellVal = 0;
 
 	for (int i = 0; i < size; i++)
 	{
-
-		cellVal += graph[row][i] * matrix[i][col];
+		int a = graph[row][i];
+		int b = matrix[i][col];
+		cellVal += (a * b);
+		//cellVal += graph[row][i] * matrix[i][col];
 	}
 
 	return cellVal;
+}
+
+
+/*/////////////////////////////////////////////////////////////////////////////
+Arbel up
+Shani down
+*//////////////////////////////////////////////////////////////////////////////
+
+vector<vector<int>>* AdjacencyMatrix::multMatrix(const AdjacencyMatrix& matrix) const
+{
+	return multMatrix(matrix.graph);
 }

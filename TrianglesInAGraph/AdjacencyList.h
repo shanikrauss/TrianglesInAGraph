@@ -15,5 +15,12 @@ public:
 	void addEdge(int vert, int neigh);
 	bool isNeighbor(int vert, int neigh);
 	list<int>& getNeighbors(int vert);
+
+
+
+	/*
+	Arbel up
+	Shani down
+	*/
 };
 

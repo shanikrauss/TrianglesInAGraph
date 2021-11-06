@@ -1,35 +1,38 @@
 
 #include "AdjacencyList.h"
 #include "AdjacencyMatrix.h"
+#include <iostream>
 
+using namespace std;
 
 list<int>* alg2(AdjacencyMatrix& G)
 {
-	AdjacencyMatrix* GSqured2 = G.mult(G);
-
-	AdjacencyMatrix* GSqured3 = GSqured2.mult(G);
-
-	list<int>* triangleVertices = nullptr;
+	vector<vector<int>>* GSqured2 = G.multMatrix(G);
+	vector<vector<int>>* GSqured3 = G.multMatrix(*GSqured2);
 
 	for (int i = 0; i < G.getSize(); i++)
 	{
-		if (GSqured3[i][i] >= 1)
+		if ((*GSqured3)[i][i] >= 1)
 		{
 			for (int j = 0; j < G.getSize(); j++)
 			{
-				if (GSqured2[i][j] >= 1)
+				if ((*GSqured2)[i][j] >= 1)
 				{
 					for (int k = 0; k < G.getSize(); k++)
 					{
-						if (G[i][k] >= 1)
+						if (G.isNeighbor(i + 1, k + 1)) // potianial BUG neib oposite
 						{
-							if (G[k][j] >= 1)
+							if (G.isNeighbor(k + 1, j + 1)) // potianial BUG neib oposite
 							{
-								triangleVertices = new list<int>;
-								triangleVertices->push_back(i);
-								triangleVertices->push_back(j);
-								triangleVertices->push_back(k);
-								break;
+								list<int>* triangleVertices = new list<int>;
+								triangleVertices->push_back(i + 1);
+								triangleVertices->push_back(j + 1);
+								triangleVertices->push_back(k + 1);
+
+								delete GSqured2;
+								delete GSqured3;
+
+								return triangleVertices;
 							}
 						}
 					}
@@ -38,12 +41,39 @@ list<int>* alg2(AdjacencyMatrix& G)
 		}
 	}
 
-	return triangleVertices;
+	delete GSqured2;
+	delete GSqured3;
+	return nullptr;
 }
 
+/*/////////////////////////////////////////////////////////////////////////////
+Arbel up
+Shani down
+*//////////////////////////////////////////////////////////////////////////////
 
 void main() {
 
 
+/*/////////////////////////////////////////////////////////////////////////////
+Arbel up
+Shani down
+*//////////////////////////////////////////////////////////////////////////////
+	
+	AdjacencyMatrix matrix(3);
+	matrix.addEdge(1, 2);
+	matrix.addEdge(2, 3);
+	matrix.addEdge(3, 1);
+
+
+	list<int>* adj = alg2(matrix);
+	for (auto it = adj->begin(); it != adj->end(); it++)
+	{
+		cout << *it << std::endl;
+	}
 
 }
+
+/*/////////////////////////////////////////////////////////////////////////////
+Arbel up
+Shani down
+*//////////////////////////////////////////////////////////////////////////////
