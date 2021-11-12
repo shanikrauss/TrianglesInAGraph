@@ -251,15 +251,7 @@ void main(int argc, char* argv[]) {
 	case 2:
 	{
 		list<int>* adj = alg2(*G2);
-		infileRes << "Algo 2 res:" << endl;
-		if (adj == nullptr)
-		{
-			infileRes << "NO";
-		}
-		for (auto it = adj->begin(); it != adj->end(); it++)
-		{
-			infileRes << *it << " ";
-		}
+		writeResToFile(infileRes, adj, numOfAlgo);
 		break;
 
 	}
@@ -267,53 +259,20 @@ void main(int argc, char* argv[]) {
 	case 3:
 	{
 		list<int>* adj33 = alg3(*G);
-		infileRes << "Algo 3 res:" << endl;
-		if (adj33 == nullptr)
-		{
-			infileRes << "NO";
-		}
-		for (auto it = adj33->begin(); it != adj33->end(); it++)
-		{
-			infileRes << *it << ", ";
-		}
+		writeResToFile(infileRes, adj33, numOfAlgo);
 		break;
-
 	}
-
 	case 4:
 	{
 		list<int>* adj1 = alg1Outside(*G);
 		list<int>* adj2 = alg2(*G2);
 		list<int>* adj3 = alg3(*G);
-		infileRes << "Algo 1 res:" << endl;
-		if (adj1 == nullptr)
-		{
-			infileRes << "NO";
-		}
-		for (auto it = adj1->begin(); it != adj1->end(); it++)
-		{
-			infileRes << *it << ", ";
-		}
-		infileRes << "Algo 2 res:" << endl;
-		if (adj2 == nullptr)
-		{
-			infileRes << "NO";
-		}
-		for (auto it = adj2->begin(); it != adj2->end(); it++)
-		{
-			infileRes << *it << ", ";
-		}
-		infileRes << "Algo 3 res:" << endl;
-		if (adj3 == nullptr)
-		{
-			infileRes << "NO";
-		}
-		for (auto it = adj3->begin(); it != adj3->end(); it++)
-		{
-			infileRes << *it << ", ";
-		}
-		break;
 
+		writeResToFile(infileRes, adj1, 1);
+		writeResToFile(infileRes, adj2, 2);
+		writeResToFile(infileRes, adj3, 3);
+
+		break;
 	}
 
 	default:
