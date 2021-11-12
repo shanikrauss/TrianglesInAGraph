@@ -159,13 +159,19 @@ void main(int argc, char* argv[]) {
 
 
 
-	if (numOfAlgo == 1 || numOfAlgo == 3 || numOfAlgo == 4)
+	if (numOfAlgo == 1 || numOfAlgo == 3)
 	{
 		G = new AdjacencyList(numOfVert);
 	}
 	else if (numOfAlgo == 2)
 	{
 		G2 = new AdjacencyMatrix(numOfVert);
+	}
+	else if(numOfAlgo == 4)
+	{
+		G = new AdjacencyList(numOfVert);
+		G2 = new AdjacencyMatrix(numOfVert);
+
 	}
 	else
 	{
