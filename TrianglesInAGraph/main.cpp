@@ -48,6 +48,36 @@ list<int>* alg2(AdjacencyMatrix& G)
 	return nullptr;
 }
 
+list<int>* alg3(AdjacencyList& G)
+{
+	//stage 1:
+	list<int>* circle = alg1Inside(G, true);
+
+	if (circle == nullptr)
+	{
+		//stage 2:
+		AdjacencyMatrix highDegGraph = AdjacencyMatrix(G, G.getDegArr());
+		circle = alg2(highDegGraph);
+	}
+
+	return circle;
+}
+
+
+bool isEdgeValid(int v, int u, int vertexNum)
+{
+	bool isValid = !(v<1 || u<1 || v>vertexNum || u>vertexNum);
+
+	return isValid;
+}
+
+bool isAlgNumValid(int algNum)
+{
+	bool isValid = algNum >= 1 && algNum <= 4;
+
+	return isValid;
+}
+
 /*/////////////////////////////////////////////////////////////////////////////
 Arbel up
 Shani down

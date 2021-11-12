@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "AdjacencyList.h"
+#include <cmath>
 
 using namespace std;
 
@@ -15,6 +16,7 @@ public:
 	AdjacencyMatrix();
 	AdjacencyMatrix(AdjacencyList& adjList);
 	AdjacencyMatrix(int size);
+	AdjacencyMatrix(AdjacencyList& adjList, vector<int>& degArr);
 
 	~AdjacencyMatrix();
 
