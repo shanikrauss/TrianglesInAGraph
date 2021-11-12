@@ -122,9 +122,8 @@ list<int>* alg1Inside(AdjacencyList& G, bool onlySmalldegre)
 				}
 			}
 		}
-
-		return nullptr;
 	}
+		return nullptr;
 }
 
 void main(int argc, char* argv[]) {
@@ -202,8 +201,13 @@ void main(int argc, char* argv[]) {
 		{
 			G->addEdge(vert, neigh);
 		}
+		else if (numOfAlgo == 2)
+		{
+			G2->addEdge(vert, neigh);
+		}
 		else
 		{
+			G->addEdge(vert, neigh);
 			G2->addEdge(vert, neigh);
 		}
 	}
