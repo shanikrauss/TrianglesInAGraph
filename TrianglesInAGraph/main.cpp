@@ -238,6 +238,7 @@ void main(int argc, char* argv[]) {
 		{
 			infileRes << *it << ", ";
 		}
+		break;
 	}
 	
 	case 2:
@@ -252,6 +253,8 @@ void main(int argc, char* argv[]) {
 		{
 			infileRes << *it << ", ";
 		}
+		break;
+
 	}
 	
 	case 3:
@@ -266,6 +269,8 @@ void main(int argc, char* argv[]) {
 		{
 			infileRes << *it << ", ";
 		}
+		break;
+
 	}
 		
 	case 4:
@@ -300,6 +305,8 @@ void main(int argc, char* argv[]) {
 		{
 			infileRes << *it << ", ";
 		}
+		break;
+
 	}
 		
 	default:
