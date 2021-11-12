@@ -21,21 +21,24 @@ list<int>* alg2(AdjacencyMatrix& G)
 			{
 				if ((*GSqured2)[i][j] >= 1)
 				{
-					for (int k = 0; k < G.getSize(); k++)
+					if (G.isNeighbor(j + 1, i + 1))
 					{
-						if (G.isNeighbor(i + 1, k + 1)) // potianial BUG neib oposite
+						for (int k = 0; k < G.getSize(); k++)
 						{
-							if (G.isNeighbor(k + 1, j + 1)) // potianial BUG neib oposite
+							if (G.isNeighbor(i + 1, k + 1)) // potianial BUG neib oposite
 							{
-								list<int>* triangleVertices = new list<int>;
-								triangleVertices->push_back(i + 1);
-								triangleVertices->push_back(j + 1);
-								triangleVertices->push_back(k + 1);
+								if (G.isNeighbor(k + 1, j + 1)) // potianial BUG neib oposite
+								{
+									list<int>* triangleVertices = new list<int>;
+									triangleVertices->push_back(i + 1);
+									triangleVertices->push_back(j + 1);
+									triangleVertices->push_back(k + 1);
 
-								delete GSqured2;
-								delete GSqured3;
+									delete GSqured2;
+									delete GSqured3;
 
-								return triangleVertices;
+									return triangleVertices;
+								}
 							}
 						}
 					}
@@ -85,6 +88,23 @@ void fileError(ifstream& infile)
 	exit(1);
 }
 
+
+void writeResToFile(ofstream& infileRes, list<int>* adj, int algoNum)
+{
+	infileRes << "Algorithm " << algoNum << " result:" << endl;
+
+	if (adj == nullptr)
+	{
+		infileRes << "NO";
+	}
+
+	for (auto it = adj->begin(); it != adj->end(); it++)
+	{
+		infileRes << *it << " ";
+	}
+
+	infileRes << endl;
+}
 /*/////////////////////////////////////////////////////////////////////////////
 Arbel up
 Shani down
@@ -151,9 +171,6 @@ void main(int argc, char* argv[]) {
 	if (!isAlgNumValid(numOfAlgo))
 	{
 		fileError(infile);
-		cout << "invalid input." << endl;
-		infile.close();
-		exit(1);
 	}
 
 	AdjacencyList* G = nullptr;
@@ -197,32 +214,25 @@ void main(int argc, char* argv[]) {
 	{
 		if (!isEdgeValid(vert, neigh, numOfVert))
 		{
-			cout << "invalid input." << endl;
-			infile.close();
-			exit(1);
+			fileError(infile);
 		}
 
-		if (numOfAlgo == 1 || numOfAlgo == 3)
+		if (numOfAlgo == 1 || numOfAlgo == 3 || numOfAlgo == 4)
 		{
 			G->addEdge(vert, neigh);
 		}
-		else if (numOfAlgo == 2)
+		
+		if (numOfAlgo == 2 || numOfAlgo == 4)
 		{
-			G2->addEdge(vert, neigh);
-		}
-		else
-		{
-			G->addEdge(vert, neigh);
 			G2->addEdge(vert, neigh);
 		}
 	}
 
 	infile.close();
 
-
 	string fileNameRes = argv[2];
-
 	ofstream infileRes(fileNameRes);
+
 	if (!infileRes)
 	{
 		cout << "invalid input." << endl;
@@ -234,18 +244,10 @@ void main(int argc, char* argv[]) {
 	case 1:
 	{
 		list<int>* adj12 = alg1Outside(*G);
-		infileRes << "Algo 1 res:" << endl;
-		if (adj12 == nullptr)
-		{
-			infileRes << "NO";
-		}
-		for (auto it = adj12->begin(); it != adj12->end(); it++)
-		{
-			infileRes << *it << ", ";
-		}
+		writeResToFile(infileRes, adj12, numOfAlgo);
 		break;
 	}
-	
+
 	case 2:
 	{
 		list<int>* adj = alg2(*G2);
@@ -256,12 +258,12 @@ void main(int argc, char* argv[]) {
 		}
 		for (auto it = adj->begin(); it != adj->end(); it++)
 		{
-			infileRes << *it << ", ";
+			infileRes << *it << " ";
 		}
 		break;
 
 	}
-	
+
 	case 3:
 	{
 		list<int>* adj33 = alg3(*G);
@@ -277,7 +279,7 @@ void main(int argc, char* argv[]) {
 		break;
 
 	}
-		
+
 	case 4:
 	{
 		list<int>* adj1 = alg1Outside(*G);
@@ -313,10 +315,10 @@ void main(int argc, char* argv[]) {
 		break;
 
 	}
-		
+
 	default:
 		break;
-	}	
+	}
 
 	infileRes.close();
 	/*/////////////////////////////////////////////////////////////////////////////
@@ -370,6 +372,8 @@ void main(int argc, char* argv[]) {
 
 	//shani branch
 }
+
+
 
 /*/////////////////////////////////////////////////////////////////////////////
 Arbel up
