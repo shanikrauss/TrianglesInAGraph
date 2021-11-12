@@ -64,7 +64,6 @@ list<int>* alg3(AdjacencyList& G)
 	return circle;
 }
 
-
 bool isEdgeValid(int v, int u, int vertexNum)
 {
 	bool isValid = !(v<1 || u<1 || v>vertexNum || u>vertexNum);
@@ -77,6 +76,13 @@ bool isAlgNumValid(int algNum)
 	bool isValid = algNum >= 1 && algNum <= 4;
 
 	return isValid;
+}
+
+void fileError(ifstream& infile)
+{
+	cout << "invalid input." << endl;
+	infile.close();
+	exit(1);
 }
 
 /*/////////////////////////////////////////////////////////////////////////////
@@ -123,15 +129,15 @@ list<int>* alg1Inside(AdjacencyList& G, bool onlySmalldegre)
 			}
 		}
 	}
-		return nullptr;
+	
+	return nullptr;
 }
 
 void main(int argc, char* argv[]) {
 
 	string fileName = argv[1]; 
-
-
 	ifstream infile(fileName);
+
 	if (!infile)
 	{
 		cout << "invalid input." << endl;
@@ -144,6 +150,7 @@ void main(int argc, char* argv[]) {
 
 	if (!isAlgNumValid(numOfAlgo))
 	{
+		fileError(infile);
 		cout << "invalid input." << endl;
 		infile.close();
 		exit(1);
@@ -151,28 +158,33 @@ void main(int argc, char* argv[]) {
 
 	AdjacencyList* G = nullptr;
 	AdjacencyMatrix* G2 = nullptr;
-	
 	int numOfVert;
+
 	infile >> numOfVert;
 
-
-
-
-	if (numOfAlgo == 1 || numOfAlgo == 3)
+	if (numOfAlgo == 1 || numOfAlgo == 3 || numOfAlgo == 4)
 	{
 		G = new AdjacencyList(numOfVert);
 	}
-	else if (numOfAlgo == 2)
+
+	if (numOfAlgo == 2 || numOfAlgo == 4)
 	{
 		G2 = new AdjacencyMatrix(numOfVert);
 	}
+	/*
 	else if(numOfAlgo == 4)
 	{
 		G = new AdjacencyList(numOfVert);
 		G2 = new AdjacencyMatrix(numOfVert);
-
 	}
 	else
+	{
+		cout << "invalid input." << endl;
+		infile.close();
+		exit(1);
+	}*/
+
+	if (!infile.good())
 	{
 		cout << "invalid input." << endl;
 		infile.close();
@@ -180,16 +192,9 @@ void main(int argc, char* argv[]) {
 	}
 
 	int vert, neigh;
-	while (!infile.eof())
-	{
-		if (!infile.good())
-		{
-			cout << "invalid input." << endl;
-			infile.close();
-			exit(1);
-		}
 
-		infile >> vert >> neigh;
+	while (infile >> vert >> neigh)
+	{
 		if (!isEdgeValid(vert, neigh, numOfVert))
 		{
 			cout << "invalid input." << endl;
