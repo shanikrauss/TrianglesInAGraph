@@ -46,6 +46,13 @@ list<int>* alg2(AdjacencyMatrix& G)
 	return nullptr;
 }
 
+list<int>* alg3(AdjacencyList& G)
+{
+	//stage 1:
+	// shani algo
+}
+
+
 /*/////////////////////////////////////////////////////////////////////////////
 Arbel up
 Shani down

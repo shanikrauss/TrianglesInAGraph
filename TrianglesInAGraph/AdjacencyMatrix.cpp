@@ -28,10 +28,24 @@ AdjacencyMatrix::AdjacencyMatrix(int size) : graph(vector<vector<int>>(size)), s
 	}
 }
 
-AdjacencyMatrix::~AdjacencyMatrix()
+AdjacencyMatrix::AdjacencyMatrix(AdjacencyList& adjList, vector<int>& degArr) : AdjacencyMatrix(adjList.getSize())
 {
-	 
+	int highDeg = (int)sqrt((double)adjList.getEdges());
+
+	for (int i = 1; i <= size; i++)
+	{
+		for (auto it = adjList.getNeighbors(i).begin(); it != adjList.getNeighbors(i).end(); it++)
+		{
+			if (degArr[i] >= highDeg)
+			{
+				graph[i - 1][*it - 1] = 1;
+			}
+		}
+	}
 }
+
+AdjacencyMatrix::~AdjacencyMatrix()
+{}
 
 int AdjacencyMatrix::getSize()
 {
