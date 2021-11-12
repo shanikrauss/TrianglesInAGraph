@@ -6,7 +6,8 @@
 #include <fstream>
 
 using namespace std;
-
+list<int>* alg1Outside(AdjacencyList& G);
+list<int>* alg1Inside(AdjacencyList& G, bool onlySmalldegre);
 list<int>* alg2(AdjacencyMatrix& G)
 {
 	vector<vector<int>>* GSqured2 = G.multMatrix(G);
@@ -128,8 +129,9 @@ list<int>* alg1Inside(AdjacencyList& G, bool onlySmalldegre)
 
 void main(int argc, char* argv[]) {
 
-	string fileName = argv[0]; 
-	
+	string fileName = argv[1]; 
+
+
 	ifstream infile(fileName);
 	if (!infile)
 	{
@@ -137,17 +139,25 @@ void main(int argc, char* argv[]) {
 		exit(1);
 	}
 
-	char ch;
+	int numOfAlgo;
 	//file >> noskipws; // avoid skipping spaces
-	infile >> ch;
-	int numOfAlgo = ch - '0';
+	infile >> numOfAlgo;
+
+	if (!isAlgNumValid(numOfAlgo))
+	{
+		cout << "invalid input." << endl;
+		infile.close();
+		exit(1);
+	}
 
 	AdjacencyList* G = nullptr;
 	AdjacencyMatrix* G2 = nullptr;
 	
+	int numOfVert;
+	infile >> numOfVert;
 
-	infile >> ch;
-	int numOfVert = ch - '0';
+
+
 
 	if (numOfAlgo == 1 || numOfAlgo == 3 || numOfAlgo == 4)
 	{
@@ -175,7 +185,13 @@ void main(int argc, char* argv[]) {
 		}
 
 		infile >> vert >> neigh;
-		//check func
+		if (!isEdgeValid(vert, neigh, numOfVert))
+		{
+			cout << "invalid input." << endl;
+			infile.close();
+			exit(1);
+		}
+
 		if (numOfAlgo == 1 || numOfAlgo == 3 || numOfAlgo == 4)
 		{
 			G->addEdge(vert, neigh);
@@ -189,7 +205,7 @@ void main(int argc, char* argv[]) {
 	infile.close();
 
 
-	string fileNameRes = argv[1];
+	string fileNameRes = argv[2];
 
 	ofstream infileRes(fileNameRes);
 	if (!infileRes)
@@ -201,106 +217,134 @@ void main(int argc, char* argv[]) {
 	switch (numOfAlgo)
 	{
 	case 1:
-		list<int>*adj  = alg1Outside(*G);
+	{
+		list<int>* adj12 = alg1Outside(*G);
 		infileRes << "Algo 1 res:" << endl;
-		for (auto it = adj->begin(); it != adj->end(); it++)
+		if (adj12 == nullptr)
+		{
+			infileRes << "NO";
+		}
+		for (auto it = adj12->begin(); it != adj12->end(); it++)
 		{
 			infileRes << *it << ", ";
 		}
-
-
-
+	}
+	
 	case 2:
-		list<int>*adj = alg2(*G2);
+	{
+		list<int>* adj = alg2(*G2);
 		infileRes << "Algo 2 res:" << endl;
+		if (adj == nullptr)
+		{
+			infileRes << "NO";
+		}
 		for (auto it = adj->begin(); it != adj->end(); it++)
 		{
 			infileRes << *it << ", ";
 		}
+	}
+	
 	case 3:
-		//list<int>*adj = alg3(*G);
+	{
+		list<int>* adj33 = alg3(*G);
 		infileRes << "Algo 3 res:" << endl;
-		for (auto it = adj->begin(); it != adj->end(); it++)
+		if (adj33 == nullptr)
+		{
+			infileRes << "NO";
+		}
+		for (auto it = adj33->begin(); it != adj33->end(); it++)
 		{
 			infileRes << *it << ", ";
 		}
+	}
+		
 	case 4:
-		list<int>*adj1 = alg1Outside(*G);
+	{
+		list<int>* adj1 = alg1Outside(*G);
 		list<int>* adj2 = alg2(*G2);
-		//list<int>*adj3 = alg3(*G);
+		list<int>* adj3 = alg3(*G);
 		infileRes << "Algo 1 res:" << endl;
+		if (adj1 == nullptr)
+		{
+			infileRes << "NO";
+		}
 		for (auto it = adj1->begin(); it != adj1->end(); it++)
 		{
 			infileRes << *it << ", ";
 		}
 		infileRes << "Algo 2 res:" << endl;
+		if (adj2 == nullptr)
+		{
+			infileRes << "NO";
+		}
 		for (auto it = adj2->begin(); it != adj2->end(); it++)
 		{
 			infileRes << *it << ", ";
 		}
 		infileRes << "Algo 3 res:" << endl;
-		//for (auto it = adj3->begin(); it != adj3->end(); it++)
-		//{
-		//	infileRes << *it << ", ";
-		//}
-
-
+		if (adj3 == nullptr)
+		{
+			infileRes << "NO";
+		}
+		for (auto it = adj3->begin(); it != adj3->end(); it++)
+		{
+			infileRes << *it << ", ";
+		}
+	}
+		
 	default:
 		break;
-	}
+	}	
 
-
-	infileRes << "hiiii";
-	
-
+	infileRes.close();
 	/*/////////////////////////////////////////////////////////////////////////////
 	Arbel up
 	Shani down
 	*//////////////////////////////////////////////////////////////////////////////
 
-	AdjacencyMatrix matrix(3);
-	matrix.addEdge(1, 2);
-	matrix.addEdge(2, 3);
-	//matrix.addEdge(3, 1);
-
-
-	list<int>* adj = alg2(matrix);
-	if (adj == nullptr)
-	{
-		cout << "shani you are the Queen" << std::endl;
-
-	}
-	else
-	{
-
-	
-	for (auto it = adj->begin(); it != adj->end(); it++)
-	{
-		cout << *it << std::endl;
-	}
-}
-
-
-	AdjacencyList lst(3);
-	lst.addEdge(1, 2);
-	lst.addEdge(2, 3);
-	//lst.addEdge(3, 1);
-
-	list<int>* adj2 = alg1Outside(lst);
-	if (adj2 == nullptr)
-	{
-		cout << "shani you are the Queen" << std::endl;
-
-	}
-	else
-	{
-
-	
-	for (auto it = adj2->begin(); it != adj2->end(); it++)
-	{
-		cout << *it << std::endl;
-	}
-}
+//	AdjacencyMatrix matrix(3);
+//	matrix.addEdge(1, 2);
+//	matrix.addEdge(2, 3);
+//	//matrix.addEdge(3, 1);
+//
+//
+//	list<int>* adj = alg2(matrix);
+//	if (adj == nullptr)
+//	{
+//		cout << "shani you are the Queen" << std::endl;
+//
+//	}
+//	else
+//	{
+//
+//	
+//	for (auto it = adj->begin(); it != adj->end(); it++)
+//	{
+//		cout << *it << std::endl;
+//	}
+//}
+//
+//
+//	AdjacencyList lst(3);
+//	lst.addEdge(1, 2);
+//	lst.addEdge(2, 3);
+//	//lst.addEdge(3, 1);
+//
+//	list<int>* adj2 = alg1Outside(lst);
+//	if (adj2 == nullptr)
+//	{
+//		cout << "shani you are the Queen" << std::endl;
+//
+//	}
+//	else
+//	{
+//
+//	
+//	for (auto it = adj2->begin(); it != adj2->end(); it++)
+//	{
+//		cout << *it << std::endl;
+//	}
+//}
 
 	//shani branch
 }
