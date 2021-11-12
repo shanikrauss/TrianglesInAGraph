@@ -44,6 +44,10 @@ list<int>& AdjacencyList::getNeighbors(int vert)
 	return adj[vert - 1];
 }
 
+vector<int>& AdjacencyList::getDegArr()
+{
+	return degrees;
+}
 
 
 /*/////////////////////////////////////////////////////////////////////////////

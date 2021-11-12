@@ -46,6 +46,22 @@ list<int>* alg2(AdjacencyMatrix& G)
 	return nullptr;
 }
 
+list<int>* alg3(AdjacencyList& G)
+{
+	//stage 1:
+	list<int>* circle = alg1Inside(G, true);
+
+	if (circle == nullptr)
+	{
+		//stage 2:
+		AdjacencyMatrix highDegGraph = AdjacencyMatrix(G, G.getDegArr());
+		circle = alg2(highDegGraph);
+	}
+
+	return circle;
+}
+
+
 /*/////////////////////////////////////////////////////////////////////////////
 Arbel up
 Shani down
