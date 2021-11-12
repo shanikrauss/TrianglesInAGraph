@@ -20,7 +20,7 @@ void AdjacencyList::addEdge(int vert, int neigh)
 	numOfedges++;
 	// out or in ?  
 	degrees[vert-1]++;
-	degrees[neigh-1]++;
+	//degrees[neigh-1]++;
 }
 
 bool AdjacencyList::isNeighbor(int vert, int neigh)

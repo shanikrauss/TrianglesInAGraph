@@ -30,7 +30,7 @@ AdjacencyMatrix::AdjacencyMatrix(int size) : graph(vector<vector<int>>(size)), s
 
 AdjacencyMatrix::AdjacencyMatrix(AdjacencyList& adjList, vector<int>& degArr) : AdjacencyMatrix(adjList.getSize())
 {
-	int highDeg = (int)sqrt((double)adjList.getEdges());
+	int highDeg = sqrt((double)adjList.getEdges());
 
 	for (int i = 1; i <= size; i++)
 	{
