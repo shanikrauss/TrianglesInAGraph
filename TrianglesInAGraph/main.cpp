@@ -62,6 +62,20 @@ list<int>* alg3(AdjacencyList& G)
 }
 
 
+bool isEdgeValid(int v, int u, int vertexNum)
+{
+	bool isValid = !(v<1 || u<1 || v>vertexNum || u>vertexNum);
+
+	return isValid;
+}
+
+bool isAlgNumValid(int algNum)
+{
+	bool isValid = algNum >= 1 && algNum <= 4;
+
+	return isValid;
+}
+
 /*/////////////////////////////////////////////////////////////////////////////
 Arbel up
 Shani down
