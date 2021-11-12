@@ -51,7 +51,13 @@ Arbel up
 Shani down
 *//////////////////////////////////////////////////////////////////////////////
 
-list<int>* alg1(AdjacencyList& G)
+list<int>* alg1Outside(AdjacencyList& G)
+{
+	return alg1Inside(G, false);
+}
+
+
+list<int>* alg1Inside(AdjacencyList& G, bool onlySmalldegre)
 {
 	AdjacencyMatrix Gmatrix(G);
 
@@ -62,20 +68,24 @@ list<int>* alg1(AdjacencyList& G)
 		for (auto it = vertINeighbors.begin(); it != vertINeighbors.end(); it++)
 		{
 			int neighborOfI = *it;
-			list<int> vertNeighborsOfNeighborI = G.getNeighbors(neighborOfI);
 
-			for (auto it2 = vertNeighborsOfNeighborI.begin(); it2 != vertNeighborsOfNeighborI.end(); it2++)
+			if (!onlySmalldegre || G.isVertDegreSmall(neighborOfI)) // potianial BUG 
 			{
-				int neighborOfneighbor = *it2;
+				list<int> vertNeighborsOfNeighborI = G.getNeighbors(neighborOfI);
 
-				if (Gmatrix.isNeighbor(neighborOfneighbor, i + 1))
+				for (auto it2 = vertNeighborsOfNeighborI.begin(); it2 != vertNeighborsOfNeighborI.end(); it2++)
 				{
-					list<int>* triangleVertices = new list<int>;
-					triangleVertices->push_back(i + 1);
-					triangleVertices->push_back(neighborOfI);
-					triangleVertices->push_back(neighborOfneighbor);
+					int neighborOfneighbor = *it2;
 
-					return triangleVertices;
+					if (Gmatrix.isNeighbor(neighborOfneighbor, i + 1))
+					{
+						list<int>* triangleVertices = new list<int>;
+						triangleVertices->push_back(i + 1);
+						triangleVertices->push_back(neighborOfI);
+						triangleVertices->push_back(neighborOfneighbor);
+
+						return triangleVertices;
+					}
 				}
 			}
 		}
@@ -87,22 +97,54 @@ list<int>* alg1(AdjacencyList& G)
 void main() {
 
 
-/*/////////////////////////////////////////////////////////////////////////////
-Arbel up
-Shani down
-*//////////////////////////////////////////////////////////////////////////////
-	
+	/*/////////////////////////////////////////////////////////////////////////////
+	Arbel up
+	Shani down
+	*//////////////////////////////////////////////////////////////////////////////
+
 	AdjacencyMatrix matrix(3);
 	matrix.addEdge(1, 2);
 	matrix.addEdge(2, 3);
-	matrix.addEdge(3, 1);
+	//matrix.addEdge(3, 1);
 
 
 	list<int>* adj = alg2(matrix);
+	if (adj == nullptr)
+	{
+		cout << "shani you are the Queen" << std::endl;
+
+	}
+	else
+	{
+
+	
 	for (auto it = adj->begin(); it != adj->end(); it++)
 	{
 		cout << *it << std::endl;
 	}
+}
+
+
+	AdjacencyList lst(3);
+	lst.addEdge(1, 2);
+	lst.addEdge(2, 3);
+	//lst.addEdge(3, 1);
+
+	list<int>* adj2 = alg1Outside(lst);
+	if (adj2 == nullptr)
+	{
+		cout << "shani you are the Queen" << std::endl;
+
+	}
+	else
+	{
+
+	
+	for (auto it = adj2->begin(); it != adj2->end(); it++)
+	{
+		cout << *it << std::endl;
+	}
+}
 
 	//shani branch
 }
