@@ -122,9 +122,8 @@ list<int>* alg1Inside(AdjacencyList& G, bool onlySmalldegre)
 				}
 			}
 		}
-
-		return nullptr;
 	}
+		return nullptr;
 }
 
 void main(int argc, char* argv[]) {
@@ -198,12 +197,17 @@ void main(int argc, char* argv[]) {
 			exit(1);
 		}
 
-		if (numOfAlgo == 1 || numOfAlgo == 3 || numOfAlgo == 4)
+		if (numOfAlgo == 1 || numOfAlgo == 3)
 		{
 			G->addEdge(vert, neigh);
 		}
+		else if (numOfAlgo == 2)
+		{
+			G2->addEdge(vert, neigh);
+		}
 		else
 		{
+			G->addEdge(vert, neigh);
 			G2->addEdge(vert, neigh);
 		}
 	}
@@ -234,6 +238,7 @@ void main(int argc, char* argv[]) {
 		{
 			infileRes << *it << ", ";
 		}
+		break;
 	}
 	
 	case 2:
@@ -248,6 +253,8 @@ void main(int argc, char* argv[]) {
 		{
 			infileRes << *it << ", ";
 		}
+		break;
+
 	}
 	
 	case 3:
@@ -262,6 +269,8 @@ void main(int argc, char* argv[]) {
 		{
 			infileRes << *it << ", ";
 		}
+		break;
+
 	}
 		
 	case 4:
@@ -296,6 +305,8 @@ void main(int argc, char* argv[]) {
 		{
 			infileRes << *it << ", ";
 		}
+		break;
+
 	}
 		
 	default:
