@@ -197,7 +197,7 @@ void main(int argc, char* argv[]) {
 			exit(1);
 		}
 
-		if (numOfAlgo == 1 || numOfAlgo == 3 || numOfAlgo == 4)
+		if (numOfAlgo == 1 || numOfAlgo == 3)
 		{
 			G->addEdge(vert, neigh);
 		}
