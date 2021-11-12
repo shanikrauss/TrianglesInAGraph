@@ -1,8 +1,9 @@
 #include "AdjacencyList.h"
+#include <math.h>    
 
 using namespace std;
 
-AdjacencyList::AdjacencyList(int n) : adj(vector<list<int>>(n)), size(n)
+AdjacencyList::AdjacencyList(int n) : adj(vector<list<int>>(n)), size(n), degrees(vector<int>(n))
 {}
 
 AdjacencyList::~AdjacencyList()
@@ -16,6 +17,10 @@ int AdjacencyList::getSize()
 void AdjacencyList::addEdge(int vert, int neigh)
 {
 	adj[vert - 1].push_back(neigh);
+	numOfedges++;
+	// out or in ?  
+	degrees[vert-1]++;
+	degrees[neigh-1]++;
 }
 
 bool AdjacencyList::isNeighbor(int vert, int neigh)
@@ -45,3 +50,14 @@ list<int>& AdjacencyList::getNeighbors(int vert)
 Arbel up
 Shani down
 *//////////////////////////////////////////////////////////////////////////////
+
+int AdjacencyList::getEdges()
+{
+	return numOfedges;
+}
+
+bool AdjacencyList::isVertDegreSmall(int vert)
+{
+	return degrees[vert - 1] < sqrt(numOfedges) ? true : false;
+}
+

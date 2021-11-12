@@ -8,7 +8,9 @@ class AdjacencyList
 {
 private:
 	int size;
+	double numOfedges;
 	vector<list<int>> adj;
+	vector<int> degrees;
 
 public:
 	AdjacencyList(int n);
@@ -24,5 +26,8 @@ public:
 	Arbel up
 	Shani down
 	*/
+
+	int getEdges();
+	bool isVertDegreSmall(int vert);
 };
 
