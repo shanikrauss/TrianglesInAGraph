@@ -23,13 +23,6 @@ public:
 	bool isNeighbor(int vert, int neigh);
 	list<int>& getNeighbors(int vert);
 	vector<int>& getDegArr();
-
-
-	/*
-	Arbel up
-	Shani down
-	*/
-
 	int getEdges();
 	bool isVertDegreSmall(int vert);
 };
