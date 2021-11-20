@@ -44,6 +44,22 @@ AdjacencyMatrix::AdjacencyMatrix(AdjacencyList& adjList, vector<int>& degArr) : 
 	}
 }
 
+AdjacencyMatrix::AdjacencyMatrix(const AdjacencyMatrix& other)
+{
+	*this = other;
+}
+
+
+const AdjacencyMatrix& AdjacencyMatrix::operator=(const AdjacencyMatrix& other)
+{
+	if (this != &other)
+	{
+		size = other.size;
+		graph = other.graph;
+	}
+	return *this;
+}
+
 AdjacencyMatrix::~AdjacencyMatrix()
 {}
 
