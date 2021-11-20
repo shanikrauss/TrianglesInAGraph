@@ -92,13 +92,14 @@ void fileError(ifstream& infile, ofstream& outfileRes)
 
 void writeResToFile(ofstream& infileRes, list<int>* adj, int algoNum)
 {
-	infileRes << "Algorithm " << algoNum << " result:" << endl;
-
 	if (adj == nullptr)
 	{
 		infileRes << "NO";
+		return;
 	}
 
+	infileRes << "Algorithm " << algoNum << " result:" << endl;
+	
 	for (auto it = adj->begin(); it != adj->end(); it++)
 	{
 		infileRes << *it << " ";
