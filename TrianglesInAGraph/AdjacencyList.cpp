@@ -6,6 +6,23 @@ using namespace std;
 AdjacencyList::AdjacencyList(int n) : adj(vector<list<int>>(n)), size(n), degrees(vector<int>(n))
 {}
 
+AdjacencyList::AdjacencyList(const AdjacencyList& other)
+{
+	*this = other;
+}
+
+const AdjacencyList& AdjacencyList::operator=(const AdjacencyList& other)
+{
+	if (this != &other)
+	{
+		size = other.size;
+		numOfedges = other.numOfedges;
+		adj = other.adj;
+		degrees = other.degrees;
+	}
+	return *this;
+}
+
 AdjacencyList::~AdjacencyList()
 {}
 
@@ -14,13 +31,28 @@ int AdjacencyList::getSize()
 	return size;
 }
 
+bool AdjacencyList::isEdgeExist(int vert, int neigh)
+{
+	for (auto it = adj[vert - 1].begin(); it != adj[vert - 1].end(); it++)
+	{
+		if (*it == neigh)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void AdjacencyList::addEdge(int vert, int neigh)
 {
-	adj[vert - 1].push_back(neigh);
-	numOfedges++;
-	// out or in ?  
-	degrees[vert-1]++;
-	//degrees[neigh-1]++;
+	if (!isEdgeExist(vert, neigh))
+	{
+		adj[vert - 1].push_back(neigh);
+		numOfedges++;
+		degrees[vert - 1]++;
+		degrees[neigh - 1]++;
+	}
 }
 
 bool AdjacencyList::isNeighbor(int vert, int neigh)

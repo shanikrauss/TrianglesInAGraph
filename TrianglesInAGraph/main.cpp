@@ -69,7 +69,7 @@ list<int>* alg3(AdjacencyList& G)
 
 bool isEdgeValid(int v, int u, int vertexNum)
 {
-	bool isValid = !(v<1 || u<1 || v>vertexNum || u>vertexNum);
+	bool isValid = !(v<1 || u<1 || v>vertexNum || u>vertexNum) && v != u;
 
 	return isValid;
 }
@@ -81,10 +81,11 @@ bool isAlgNumValid(int algNum)
 	return isValid;
 }
 
-void fileError(ifstream& infile)
+void fileError(ifstream& infile, ofstream& outfileRes)
 {
-	cout << "invalid input." << endl;
+	outfileRes << "invalid input." << endl;
 	infile.close();
+	outfileRes.close();
 	exit(1);
 }
 
@@ -157,10 +158,12 @@ void main(int argc, char* argv[]) {
 
 	string fileName = argv[1]; 
 	ifstream infile(fileName);
+	string fileNameRes = argv[2];
+	ofstream infileRes(fileNameRes);
 
-	if (!infile)
+	if (!infile || !infileRes)
 	{
-		cout << "invalid input." << endl;
+		infileRes << "invalid input." << endl;
 		exit(1);
 	}
 
@@ -170,7 +173,7 @@ void main(int argc, char* argv[]) {
 
 	if (!isAlgNumValid(numOfAlgo))
 	{
-		fileError(infile);
+		fileError(infile, infileRes);
 	}
 
 	AdjacencyList* G = nullptr;
@@ -203,9 +206,7 @@ void main(int argc, char* argv[]) {
 
 	if (!infile.good())
 	{
-		cout << "invalid input." << endl;
-		infile.close();
-		exit(1);
+		fileError(infile, infileRes);
 	}
 
 	int vert, neigh;
@@ -214,7 +215,7 @@ void main(int argc, char* argv[]) {
 	{
 		if (!isEdgeValid(vert, neigh, numOfVert))
 		{
-			fileError(infile);
+			fileError(infile, infileRes);
 		}
 
 		if (numOfAlgo == 1 || numOfAlgo == 3 || numOfAlgo == 4)
@@ -230,12 +231,9 @@ void main(int argc, char* argv[]) {
 
 	infile.close();
 
-	string fileNameRes = argv[2];
-	ofstream infileRes(fileNameRes);
-
 	if (!infileRes)
 	{
-		cout << "invalid input." << endl;
+		infileRes << "invalid input." << endl;
 		exit(1);
 	}
 
@@ -253,7 +251,6 @@ void main(int argc, char* argv[]) {
 		list<int>* adj = alg2(*G2);
 		writeResToFile(infileRes, adj, numOfAlgo);
 		break;
-
 	}
 
 	case 3:

@@ -14,9 +14,12 @@ private:
 
 public:
 	AdjacencyList(int n);
+	AdjacencyList(const AdjacencyList& other);
+	const AdjacencyList& operator=(const AdjacencyList& other);
 	~AdjacencyList();
 	int getSize();
 	void addEdge(int vert, int neigh);
+	bool isEdgeExist(int vert, int neigh);
 	bool isNeighbor(int vert, int neigh);
 	list<int>& getNeighbors(int vert);
 	vector<int>& getDegArr();
