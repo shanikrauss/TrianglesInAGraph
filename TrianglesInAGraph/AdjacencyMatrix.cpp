@@ -36,7 +36,7 @@ AdjacencyMatrix::AdjacencyMatrix(AdjacencyList& adjList, vector<int>& degArr) : 
 	{
 		for (auto it = adjList.getNeighbors(i).begin(); it != adjList.getNeighbors(i).end(); it++)
 		{
-			if (degArr[i] >= highDeg)
+			if (degArr[i - 1] >= highDeg)
 			{
 				graph[i - 1][*it - 1] = 1;
 			}
