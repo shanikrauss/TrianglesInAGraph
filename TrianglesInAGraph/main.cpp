@@ -1,4 +1,3 @@
-
 #include "AdjacencyList.h"
 #include "AdjacencyMatrix.h"
 #include <iostream>
@@ -95,7 +94,7 @@ void writeResToFile(ofstream& infileRes, list<int>* adj, int algoNum)
 {
 	if (adj == nullptr)
 	{
-		infileRes << "NO";
+		infileRes << "NO" << endl;
 		return;
 	}
 
@@ -108,16 +107,11 @@ void writeResToFile(ofstream& infileRes, list<int>* adj, int algoNum)
 
 	infileRes << endl;
 }
-/*/////////////////////////////////////////////////////////////////////////////
-Arbel up
-Shani down
-*//////////////////////////////////////////////////////////////////////////////
 
 list<int>* alg1Outside(AdjacencyList& G)
 {
 	return alg1Inside(G, false);
 }
-
 
 list<int>* alg1Inside(AdjacencyList& G, bool onlySmalldegre)
 {
@@ -224,22 +218,22 @@ void main(int argc, char* argv[]) {
 	{
 	case 1:
 	{
-		list<int>* adj12 = alg1Outside(*G);
-		writeResToFile(infileRes, adj12, numOfAlgo);
+		list<int>* adj1 = alg1Outside(*G);
+		writeResToFile(infileRes, adj1, numOfAlgo);
 		break;
 	}
 
 	case 2:
 	{
-		list<int>* adj = alg2(*G2);
-		writeResToFile(infileRes, adj, numOfAlgo);
+		list<int>* adj2 = alg2(*G2);
+		writeResToFile(infileRes, adj2, numOfAlgo);
 		break;
 	}
 
 	case 3:
 	{
-		list<int>* adj33 = alg3(*G);
-		writeResToFile(infileRes, adj33, numOfAlgo);
+		list<int>* adj3 = alg3(*G);
+		writeResToFile(infileRes, adj3, numOfAlgo);
 		break;
 	}
 	case 4:
@@ -261,10 +255,3 @@ void main(int argc, char* argv[]) {
 
 	infileRes.close();
 }
-
-
-
-/*/////////////////////////////////////////////////////////////////////////////
-Arbel up
-Shani down
-*//////////////////////////////////////////////////////////////////////////////
