@@ -1,5 +1,4 @@
 #include "AdjacencyMatrix.h"
-//#include<iostream>
 
 AdjacencyMatrix::AdjacencyMatrix()
 {
@@ -23,7 +22,6 @@ AdjacencyMatrix::AdjacencyMatrix(int size) : graph(vector<vector<int>>(size)), s
 		for (int j = 0; j < size; j++)
 		{
 			graph[i].push_back(0);
-			//graph[i][j] = 0;
 		}
 	}
 }
@@ -78,17 +76,17 @@ bool AdjacencyMatrix::isNeighbor(int vert, int neigh)
 	return graph[vert - 1][neigh - 1];
 }
 
-vector<int> AdjacencyMatrix::getNeighbors(int vert)
+vector<int>& AdjacencyMatrix::getNeighbors(int vert)
 {
 	return graph[vert - 1];
 }
 
-const vector<int>& AdjacencyMatrix::operator[](int i) const // check if out_of_range
+const vector<int>& AdjacencyMatrix::operator[](int i) const 
 {
 	return graph[i];
 }
 
-vector<int>& AdjacencyMatrix::operator[](int i) // check if out_of_range
+vector<int>& AdjacencyMatrix::operator[](int i) 
 {
 	return graph[i];
 }
@@ -101,8 +99,6 @@ vector<vector<int>>* AdjacencyMatrix::multMatrix(const vector<vector<int>>& matr
 	{
 		for (int j = 0; j < size; j++)
 		{
-			//multedMatrix[i][j] = calcCell(matrix, i, j);
-			//(*multedMatrix)[i].push_back(6);
 			(*multedMatrix)[i].push_back(calcCell(matrix, i, j));
 		}
 	}
@@ -120,17 +116,10 @@ int AdjacencyMatrix::calcCell(const vector<vector<int>>& matrix, int row, int co
 		int a = graph[row][i];
 		int b = matrix[i][col];
 		cellVal += (a * b);
-		//cellVal += graph[row][i] * matrix[i][col];
 	}
 
 	return cellVal;
 }
-
-
-/*/////////////////////////////////////////////////////////////////////////////
-Arbel up
-Shani down
-*//////////////////////////////////////////////////////////////////////////////
 
 vector<vector<int>>* AdjacencyMatrix::multMatrix(const AdjacencyMatrix& matrix) const
 {
